@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+    <Folder Include="CustomRenderers\" />
+    <Folder Include="DependencyServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\covid19stats\covid19stats.csproj">

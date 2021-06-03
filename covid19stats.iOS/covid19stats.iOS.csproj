@@ -133,4 +133,8 @@
       <Name>covid19stats</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomRenderers\" />
+    <Folder Include="DependencyServices\" />
+  </ItemGroup>
 </Project>
