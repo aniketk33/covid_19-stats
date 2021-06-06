@@ -1,4 +1,5 @@
 ﻿using System;
+using covid19stats.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,8 +10,7 @@ namespace covid19stats
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new DashboardPage());
         }
 
         protected override void OnStart()
