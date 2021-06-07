@@ -4,39 +4,38 @@ using covid19stats.Helpers;
 
 namespace covid19stats.Services
 {
-    public class GetVaccineData
+    public class RestServices
     {
-        //get vaccine details
-        public async Task<string> GetVaccineDetails()
+        //commmon method for api call
+        public async Task<string> GetResponseFromAPI(string uri)
         {
             string result = string.Empty;
             try
             {
-                string append = "/v3/covid-19/vaccine";
-                string requestURI = $"{Constants.BaseUrl}{append}";
+                string requestURI = $"{Constants.BaseUrl}{uri}";
                 result = await new HttpServices().GetDataFromServer(requestURI);
                 return result;
             }
             catch (Exception)
             {
-                return "";
+                return result;
             }
         }
 
-        //get vaccine coverage data for countries
-        public async Task<string> GetVaccineCoverageData()
+        //sort covid data based on parameter value continent wise
+        public async Task<string> SortContinentDataParameterWise(string input)
         {
             string result = string.Empty;
             try
             {
-                string append = "/v3/covid-19/vaccine/coverage/countries";
+                string append = $"/v3/covid-19/continents?sort={input}";
                 string requestURI = $"{Constants.BaseUrl}{append}";
                 result = await new HttpServices().GetDataFromServer(requestURI);
                 return result;
             }
             catch (Exception)
             {
-                return "";
+                return result;
             }
         }
     }

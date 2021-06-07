@@ -2,24 +2,122 @@
 <ContentPage
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="covid19stats.Views.DashboardPage">
+    x:Class="covid19stats.Views.DashboardPage"
+    BackgroundColor="{x:DynamicResource PrimaryColor}"
+    xmlns:viewmodel="clr-namespace:covid19stats.ViewModels">
+    <ContentPage.BindingContext>
+        <viewmodel:DashboardViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
-            <Label Text="Welcome to Xamarin.Forms!" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
-        </Frame>
-        <Label Text="Start developing now" FontSize="Title" Padding="30,10,30,10"/>
-        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="30,0,30,0"/>
-        <Label FontSize="16" Padding="30,24,30,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <FormattedString.Spans>
-                        <Span Text="Learn more at "/>
-                        <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
-                    </FormattedString.Spans>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+        <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" Padding="10"
+              HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" RowSpacing="20">
+            <Frame Grid.Row="0" BackgroundColor="{x:DynamicResource AlternateColor}"
+                   CornerRadius="40" Padding="35" Margin="-15,-29,-45,0">
+                <StackLayout>
+                    <Label Text="Covid-19 Live Updates" FontSize="Title" TextColor="{x:DynamicResource TertiaryTextColor}"/>
+                    <Label Text="{Binding UpdateDate}" FontSize="Small" TextColor="{x:DynamicResource TertiaryTextColor}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="1" BackgroundColor="{x:DynamicResource TertiaryColor}">
+                <Grid  RowDefinitions="Auto,Auto,Auto">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="Global Update" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
+                                TextColor="{x:DynamicResource TertiaryTextColor}" FontSize="22" VerticalTextAlignment="Center"/>
+                        <Label Text="Refresh" TextColor="{x:DynamicResource TertiaryTextColor}"
+                               VerticalTextAlignment="Center" FontSize="Small"/>
+                    </StackLayout>
+
+                    <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
+                                VerticalOptions="FillAndExpand" Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="80">
+                        <Frame BackgroundColor="#cee0ec"
+                               Padding="10" WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Confirmed" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding Totalcases}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#cee0ec" Padding="10"
+                               WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Recovered" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding Recovered}" TextColor="{x:DynamicResource SuccessTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#cee0ec" Padding="10"
+                               WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Deaths" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding Deaths}" TextColor="{x:DynamicResource FailureTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    </ScrollView>
+
+                    <Label Grid.Row="2" Text="{Binding UpdateDate}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                           FontSize="Small"/>
+                </Grid>
+            </Frame>
+
+            <Frame Grid.Row="2" BackgroundColor="{x:DynamicResource TertiaryColor}">
+                <Grid  RowDefinitions="Auto,Auto,Auto">
+                    <StackLayout Orientation="Horizontal">
+                        <!--Country flag-->
+                        <Frame Padding="0" HasShadow="False" BackgroundColor="Transparent" CornerRadius="0" Margin="0,0,10,0">
+                            <Image Source="{Binding Flag}" HeightRequest="10" WidthRequest="40"/>
+                        </Frame>
+                        <Label Text="{Binding CountryName}" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
+                                TextColor="{x:DynamicResource TertiaryTextColor}" FontSize="24" VerticalTextAlignment="Center"/>
+                        <Label Text="Refresh" TextColor="{x:DynamicResource TertiaryTextColor}"
+                               VerticalTextAlignment="Center" FontSize="Small"/>
+                    </StackLayout>
+
+                    <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
+                                VerticalOptions="FillAndExpand" Orientation="Horizontal">
+                       <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                                     HeightRequest="80">
+                        <Frame BackgroundColor="#cee0ec"
+                               Padding="10" WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Confirmed" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding TotalcasesCountry}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#cee0ec" Padding="10"
+                               WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Recovered" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding RecoveredCountry}" TextColor="{x:DynamicResource SuccessTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                        <Frame BackgroundColor="#cee0ec" Padding="10"
+                               WidthRequest="120" HasShadow="False">
+                            <StackLayout>
+                                <Label Text="Deaths" TextColor="{x:DynamicResource TertiaryTextColor}"
+                                        HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+                                <Label Text="{Binding DeathsCountry}" TextColor="{x:DynamicResource FailureTextColor}"
+                                        HorizontalTextAlignment="Center" FontSize="22"/>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    </ScrollView>
+
+                    <Label Grid.Row="2" Text="{Binding UpdateDateCountry}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                           FontSize="Small"/>
+                </Grid>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

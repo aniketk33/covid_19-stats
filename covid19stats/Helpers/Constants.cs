@@ -5,6 +5,22 @@ namespace covid19stats.Helpers
     {
         public static string BaseUrl = "https://corona.lmao.ninja";
 
+
+        #region APIs
+
+        public static string GetWorldsData = "/v3/covid-19/all"; //world's covid data
+        public static string GetCountryList = "/v3/covid-19/apple/countries"; //list of countries data present
+        public static string GetCountrySubregion = $"/v3/covid-19/apple/countries/"; //list of sub regions of a particular country
+        public static string GetSubregiondata = $"/v3/covid-19/apple/countries"; //list of sub region data of a particular country
+        public static string GetAllCountryData = "/v3/covid-19/countries"; //get all country covid data
+        public static string GetACountryData = "/v3/covid-19/countries/"; //get a country covid data
+        public static string GetAllContinentData = "/v3/covid-19/continents"; //get all covid data continent wise        
+
+        public static string VaccineDetails = "/v3/covid-19/vaccine"; //get vaccine details
+        public static string VaccineCoverageDataOfCountries = "/v3/covid-19/vaccine/coverage/countries"; //vaccine coverage for countries
+
+        #endregion
+
         //list of countries data present: v3/covid-19/apple/countries
         //list of countries subregion data present: v3/covid-19/apple/countries/country
 
