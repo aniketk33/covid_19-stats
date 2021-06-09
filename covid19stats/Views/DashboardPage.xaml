@@ -4,7 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="covid19stats.Views.DashboardPage"
     BackgroundColor="{x:DynamicResource PrimaryColor}"
-    xmlns:viewmodel="clr-namespace:covid19stats.ViewModels">
+    xmlns:viewmodel="clr-namespace:covid19stats.ViewModels"
+    xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+    x:DataType="viewmodel:DashboardViewModel"
+    NavigationPage.HasNavigationBar="False">
     <ContentPage.BindingContext>
         <viewmodel:DashboardViewModel/>
     </ContentPage.BindingContext>
@@ -19,19 +22,31 @@
                 </StackLayout>
             </Frame>
 
+            <!--Global data-->
             <Frame Grid.Row="1" BackgroundColor="{x:DynamicResource TertiaryColor}">
-                <Grid  RowDefinitions="Auto,Auto,Auto">
+                <Grid  RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5">
                     <StackLayout Orientation="Horizontal">
                         <Label Text="Global Update" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
                                 TextColor="{x:DynamicResource TertiaryTextColor}" FontSize="22" VerticalTextAlignment="Center"/>
                         <Label Text="Refresh" TextColor="{x:DynamicResource TertiaryTextColor}"
-                               VerticalTextAlignment="Center" FontSize="Small"/>
+                               VerticalTextAlignment="Center" FontSize="Small">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RefreshGlobalDataCommand}"/>
+                            </Label.GestureRecognizers>
+                            </Label>
                     </StackLayout>
 
-                    <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
+                    <ActivityIndicator x:Name="globalloading" Grid.Row="1" IsRunning="{Binding IsGlobalDataLoading}"
+                                       IsVisible="{Binding IsGlobalDataLoading}" Color="{x:DynamicResource PrimaryColor}"
+                                        />
+                    <Label Grid.Row="2" Text="Please wait" HorizontalTextAlignment="Center"
+                           IsVisible="{Binding Source={x:Reference globalloading},Path=IsRunning}"
+                           TextColor="{x:DynamicResource PrimaryColor}"/>
+
+                    <ScrollView Grid.Row="3" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
                                 VerticalOptions="FillAndExpand" Orientation="Horizontal">
                         <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                                     HeightRequest="80">
+                                     HeightRequest="80" Spacing="10">
                         <Frame BackgroundColor="#cee0ec"
                                Padding="10" WidthRequest="120" HasShadow="False">
                             <StackLayout>
@@ -62,28 +77,51 @@
                     </StackLayout>
                     </ScrollView>
 
-                    <Label Grid.Row="2" Text="{Binding UpdateDate}" TextColor="{x:DynamicResource TertiaryTextColor}"
-                           FontSize="Small"/>
+                    <Label Grid.Row="4" Text="{Binding UpdateDate}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                           FontSize="Small" Margin="0,10,0,0"/>
                 </Grid>
             </Frame>
 
+            <!--Country data-->
             <Frame Grid.Row="2" BackgroundColor="{x:DynamicResource TertiaryColor}">
-                <Grid  RowDefinitions="Auto,Auto,Auto">
+                <Grid  RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5">
                     <StackLayout Orientation="Horizontal">
-                        <!--Country flag-->
                         <Frame Padding="0" HasShadow="False" BackgroundColor="Transparent" CornerRadius="0" Margin="0,0,10,0">
                             <Image Source="{Binding Flag}" HeightRequest="10" WidthRequest="40"/>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCountryCommand}"/>
+                            </Frame.GestureRecognizers>
                         </Frame>
-                        <Label Text="{Binding CountryName}" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                            <Label Text="{Binding CountryName}" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
                                 TextColor="{x:DynamicResource TertiaryTextColor}" FontSize="24" VerticalTextAlignment="Center"/>
+                           
+                            <svg:SvgCachedImage Source="resource://covid19stats.Resources.acordian.svg" 
+                                                        HeightRequest="10" WidthRequest="10" HorizontalOptions="EndAndExpand"
+                                                        Rotation="90" Margin="10,0"/>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectCountryCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
                         <Label Text="Refresh" TextColor="{x:DynamicResource TertiaryTextColor}"
-                               VerticalTextAlignment="Center" FontSize="Small"/>
+                               VerticalTextAlignment="Center" FontSize="Small" MinimumWidthRequest ="50">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding RefreshCountryDataCommand}"/>
+                            </Label.GestureRecognizers>
+                            </Label>
                     </StackLayout>
 
-                    <ScrollView Grid.Row="1" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
+                    <ActivityIndicator x:Name="countryloading" Grid.Row="1" IsRunning="{Binding IsCountryDataLoading}"
+                                       IsVisible="{Binding IsCountryDataLoading}" Color="{x:DynamicResource PrimaryColor}"
+                                        />
+                    <Label Grid.Row="2" Text="Please wait" HorizontalTextAlignment="Center"
+                           IsVisible="{Binding Source={x:Reference countryloading},Path=IsRunning}"
+                           TextColor="{x:DynamicResource PrimaryColor}"/>
+
+                    <ScrollView Grid.Row="3" HorizontalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never"
                                 VerticalOptions="FillAndExpand" Orientation="Horizontal">
                        <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
-                                     HeightRequest="80">
+                                     HeightRequest="80" Spacing="10">
                         <Frame BackgroundColor="#cee0ec"
                                Padding="10" WidthRequest="120" HasShadow="False">
                             <StackLayout>
@@ -114,8 +152,8 @@
                     </StackLayout>
                     </ScrollView>
 
-                    <Label Grid.Row="2" Text="{Binding UpdateDateCountry}" TextColor="{x:DynamicResource TertiaryTextColor}"
-                           FontSize="Small"/>
+                    <Label Grid.Row="4" Text="{Binding UpdateDateCountry}" TextColor="{x:DynamicResource TertiaryTextColor}"
+                           FontSize="Small" Margin="0,10,0,0"/>
                 </Grid>
             </Frame>
         </Grid>

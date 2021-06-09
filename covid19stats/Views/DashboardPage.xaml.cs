@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace covid19stats.Views
 {
@@ -9,6 +11,7 @@ namespace covid19stats.Views
         public DashboardPage()
         {
             InitializeComponent();
+            On<iOS>().SetUseSafeArea(true);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace covid19stats
 {
     public partial class App : Application
     {
+        public static int AffectedCountriesCount { get; set; }
         public App()
         {
             InitializeComponent();

@@ -15,7 +15,7 @@ namespace covid19stats.Models
         public int active { get; set; }
         public int critical { get; set; }
         public int casesPerOneMillion { get; set; }
-        public int deathsPerOneMillion { get; set; }
+        public double deathsPerOneMillion { get; set; }
         public int tests { get; set; }
         public int testsPerOneMillion { get; set; }
         public int population { get; set; }
@@ -23,18 +23,18 @@ namespace covid19stats.Models
         public int oneCasePerPeople { get; set; }
         public int oneDeathPerPeople { get; set; }
         public int oneTestPerPeople { get; set; }
-        public int undefined { get; set; }
+        public double undefined { get; set; }
         public double activePerOneMillion { get; set; }
         public double recoveredPerOneMillion { get; set; }
         public double criticalPerOneMillion { get; set; }
     }
     public class CountryInfo
     {
-        public int _id { get; set; }
-        public string iso2 { get; set; }
-        public string iso3 { get; set; }
-        public int lat { get; set; }
-        public int @long { get; set; }
+        //public int _id { get; set; }
+        //public string iso2 { get; set; }
+        //public string iso3 { get; set; }
+        //public int lat { get; set; }
+        //public int @long { get; set; }
         public string flag { get; set; }
     }
 }
