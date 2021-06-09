@@ -39,4 +39,10 @@
     <Folder Include="AppResources\" />
     <Folder Include="Resources\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\acordian.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\acordian.svg" />
+  </ItemGroup>
 </Project>
