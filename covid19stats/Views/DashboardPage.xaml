@@ -26,7 +26,7 @@
             <Frame Grid.Row="1" BackgroundColor="{x:DynamicResource TertiaryColor}">
                 <Grid  RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5">
                     <StackLayout Orientation="Horizontal">
-                        <Label Text="Global Update" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
+                        <Label Text="Global" HorizontalOptions="StartAndExpand" FontAttributes="Bold"
                                 TextColor="{x:DynamicResource TertiaryTextColor}" FontSize="22" VerticalTextAlignment="Center"/>
                         <Label Text="Refresh" TextColor="{x:DynamicResource TertiaryTextColor}"
                                VerticalTextAlignment="Center" FontSize="Small">

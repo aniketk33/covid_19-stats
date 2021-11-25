@@ -10,6 +10,7 @@ using covid19stats.Services;
 using Newtonsoft.Json;
 using Rg.Plugins.Popup.Services;
 using Xamarin.CommunityToolkit.ObjectModel;
+using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms;
 
 namespace covid19stats.ViewModels
@@ -20,9 +21,10 @@ namespace covid19stats.ViewModels
         private ObservableCollection<CountryDataModel> countrydata;
         private bool isLoading = true;
         List<CountryDataModel> tempcountryDataModelList;
+        private bool currState ;
 
         #region Properties
-
+        public bool CurrState { get => currState; set => SetProperty(ref currState, value); }
         public bool IsLoading { get => isLoading; set => SetProperty(ref isLoading, value); }
         public int totalaffected { get; set; } = App.AffectedCountriesCount;
         public ObservableCollection<CountryDataModel> CountryData { get => countrydata; set => SetProperty(ref countrydata, value); }
@@ -39,7 +41,7 @@ namespace covid19stats.ViewModels
         {
             Callback = callback;
             tempcountryDataModelList = new List<CountryDataModel>();
-            SelectCountryCommand = new AsyncCommand<string>(SelectCountry, allowsMultipleExecutions: false);         
+            SelectCountryCommand = new AsyncCommand<string>(SelectCountry, allowsMultipleExecutions: false);
         }
 
         public CountryBottomSheetViewModel()
@@ -55,12 +57,15 @@ namespace covid19stats.ViewModels
         {
             try
             {
+                CurrState = true;
                 IsLoading = true;
                 string requrl = $"{Constants.GetAllCountryData}";
                 var responseString = await new RestServices().GetResponseFromAPI(requrl).ConfigureAwait(false);
                 var responseData = JsonConvert.DeserializeObject<List<CountryDataModel>>(responseString);
+                await Task.Delay(10000);
                 CountryData = new ObservableCollection<CountryDataModel>(responseData);
-                tempcountryDataModelList = new List<CountryDataModel>(responseData); 
+                tempcountryDataModelList = new List<CountryDataModel>(responseData);
+                CurrState = false;
                 IsLoading = false;
             }
             catch (Exception)

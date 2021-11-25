@@ -7,7 +7,9 @@
     xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
     xmlns:animation="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
     xmlns:viewmodel="clr-namespace:covid19stats.ViewModels"
+    xmlns:template="clr-namespace:covid19stats.Templates"
     xmlns:model="clr-namespace:covid19stats.Models"
+    xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:controls="clr-namespace:covid19stats.Controls"
     x:Name="this">
 
     <popup:PopupPage.Animation>
@@ -17,11 +19,9 @@
     </popup:PopupPage.Animation>
 
     <ContentPage.Content>
-        <Frame CornerRadius="25" BackgroundColor="{x:DynamicResource PrimaryColor}" Margin="0,100,0,0">
+        <Frame  CornerRadius="25" BackgroundColor="{x:DynamicResource PrimaryColor}" Margin="0,100,0,0">
             <Grid RowDefinitions="Auto,Auto,Auto,Auto" VerticalOptions="Fill">
 
-                 <!--<Label Grid.Row="0" Text="{Binding totalaffected,StringFormat='{0} countries are fighting Covid-19. Stay safe!'}" FontSize="Medium"
-                       TextColor="{x:DynamicResource AlternateColor}"/>-->
                 <Frame Grid.Row="1" Padding="1" HasShadow="False" CornerRadius="7"
                        BackgroundColor="Transparent"
                        BorderColor="{x:DynamicResource AlternateColor}">
@@ -36,11 +36,7 @@
                        IsVisible="{Binding Source={x:Reference loading},Path=IsRunning}"
                        TextColor="{x:DynamicResource AlternateColor}"/>
 
-                    <CollectionView Grid.Row="4" ItemsSource="{Binding CountryData}">
-                        <CollectionView.EmptyView>
-                            <Label Text="No Data Found" FontSize="Title" HorizontalTextAlignment="Center"
-                                   VerticalTextAlignment="Center"/>
-                        </CollectionView.EmptyView>
+                <CollectionView Grid.Row="4" ItemsSource="{Binding CountryData}">                        
                         <CollectionView.ItemsLayout>
                             <GridItemsLayout VerticalItemSpacing="7" Orientation="Vertical"/>
                         </CollectionView.ItemsLayout>
@@ -67,6 +63,28 @@
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
                     </CollectionView>
+
+                <StackLayout Grid.Row="4" IsVisible="{Binding IsLoading}">
+                    <Grid Padding="32,16" RowSpacing="8" VerticalOptions="Center">
+
+                        <controls:SkeletonView Grid.ColumnSpan="3"
+                                                Grid.Row="0"
+                                                HeightRequest="16"
+                                                VerticalOptions="Center"/>
+
+                        <controls:SkeletonView Grid.ColumnSpan="5"
+                                                Grid.Row="1" 
+                                                HeightRequest="24"
+                                                VerticalOptions="Center"/>
+
+                        <controls:SkeletonView Grid.ColumnSpan="2"
+                                                Grid.Row="2"
+                                                HeightRequest="16"
+                                                VerticalOptions="Center"/>
+                    </Grid>
+                    <BoxView Margin="16,0" BackgroundColor="SlateGray"/>
+                </StackLayout>
+
             </Grid>
             </Frame>
     </ContentPage.Content>

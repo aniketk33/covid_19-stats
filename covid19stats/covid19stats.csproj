@@ -38,6 +38,8 @@
     <Folder Include="Helpers\" />
     <Folder Include="AppResources\" />
     <Folder Include="Resources\" />
+    <Folder Include="Templates\" />
+    <Folder Include="Controls\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\acordian.svg" />
